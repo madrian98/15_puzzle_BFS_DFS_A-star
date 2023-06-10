@@ -14,6 +14,3 @@ The 15 puzzle consists of 15 squares numbered from 1 to 15 that are placed in a 
 </p>
 
 
-
-# Note
-*** Made for a school project. Worked locally, then uploaded to GitHub. This is why there are only 8 commits. ***
