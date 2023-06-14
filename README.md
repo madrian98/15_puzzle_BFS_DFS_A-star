@@ -26,4 +26,35 @@ This is a text file in which the number of lines depends on the size of the fram
 13 14 15 12 <br>
 
 ---
-# Output files:
+# Output files
+
+## Solution file
+This is a text file typically consisting of 2 lines. The first line contains an integer n, indicating the length of the found solution (i.e., the length of the sequence of moves corresponding to the shifts of the empty tile that will transform the puzzle from the given initial state to the target state). The second line consists of a sequence of n letters, representing the individual moves of the empty tile within the found solution, according to the representation provided in the table above. If the program did not find a solution for the given initial state, the file will consist of only 1 line, containing the number -1.
+
+---
+**Example solution file**
+
+1 <br>
+D <br>
+
+---
+
+## Statistics file
+This is a text file consisting of 5 lines, each containing a respective number representing:<br>
+
+* 1st line (integer): the length of the found solution - the same value as in the solution file (if the program did not find a solution, the value is -1).
+* 2nd line (integer): the number of visited states.
+* 3rd line (integer): the number of processed states.
+* 4th line (integer): the maximum achieved recursion depth.
+* 5th line (floating-point number with a precision of 3 decimal places): the duration of the computational process in milliseconds.
+
+---
+**Example statistics file**
+
+1 <br>
+4 <br>
+1 <br>
+1 <br>
+0.997 <br>
+
+---
