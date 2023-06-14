@@ -13,4 +13,17 @@ The 15 puzzle consists of 15 squares numbered from 1 to 15 that are placed in a 
   <p align="center"> Puzzle goal state</p>
 </p>
 
+# Input file
+This is a text file in which the number of lines depends on the size of the frame. The first line contains two integers, w and k, separated by a space, which respectively determine the vertical (number of rows) and horizontal (number of columns) size of the frame. Each of the remaining lines contains k integers separated by spaces, which describe the position of individual puzzle elements, where a value of 0 represents an empty space.
 
+---
+**Example input**
+
+4 4 <br>
+1 2 3 4 <br>
+5 6 7 8 <br>
+9 10 11 0 <br>
+13 14 15 12 <br>
+
+---
+# Output files:
