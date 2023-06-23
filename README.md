@@ -19,12 +19,13 @@ This is a text file in which the number of lines depends on the size of the fram
 ---
 **Example input**
 
-4 4 <br>
-1 2 3 4 <br>
-5 6 7 8 <br>
-9 10 11 0 <br>
-13 14 15 12 <br>
-
+```bash
+4 4 
+1 2 3 4 
+5 6 7 8 
+9 10 11 0 
+13 14 15 12 
+```
 ---
 # Output files
 
@@ -34,9 +35,10 @@ This is a text file typically consisting of 2 lines. The first line contains an 
 ---
 **Example solution file**
 
-1 <br>
-D <br>
-
+```bash
+1 
+D 
+```
 ---
 
 ## Statistics file
@@ -51,10 +53,12 @@ This is a text file consisting of 5 lines, each containing a respective number r
 ---
 **Example statistics file**
 
-1 <br>
-4 <br>
-1 <br>
-1 <br>
-0.997 <br>
+```bash
+1 
+4 
+1 
+1 
+0.997 
+```
 
 ---
