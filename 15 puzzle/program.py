@@ -2,74 +2,71 @@ from algorithms.a_star_strategy import a_star
 from algorithms.bfs_strategy import bfs
 from algorithms.dfs_strategy import dfs
 from validators.input_validator import Validator
-from helpers.strategy_methods import BFS_DFS_Methods
+from helpers.strategy_methods import STRATEGY_METHODS
 from time import time_ns
 from helpers.board_helper import BoardHelper
+from typing import List, Tuple, Union
 
 """
 Main program for solving the 15-puzzle problem using different search strategies.
 """
 
-def main():
+def main() -> None:
     """
     Main function to run the 15-puzzle solver.
     """
-    val = Validator()
-    if not val.final_validator():
+    validator = Validator()
+    if not validator.final_validator():
         return
 
-    order = list(val.strategy) if val.option == 0 else BFS_DFS_Methods['data']
+    order = list(validator.strategy) if validator.option == 0 else STRATEGY_METHODS[0]['data']
     board_helper = BoardHelper(order)
 
-    # getting initial board
-    with open(val.source) as input_board:
+    # Getting initial board
+    with open(validator.source) as input_board:
         board_helper.solved_board_generation(
-            list(map(int, input_board.readline().split()))
+            tuple(map(int, input_board.readline().split()))
         )
         for line in input_board:
             board_helper.starting_board.append(line.split())
 
-    # Example BFS
-    if val.method == 'bfs':
-        bfs_solution, bfs_depth = bfs(board_helper)
-        statistics = [bfs_solution, bfs_depth]
-    # Example DFS
-    elif val.method == 'dfs':
-        dfs_solution, dfs_depth = dfs(board_helper)
-        statistics = [dfs_solution, dfs_depth]
-    # Example A*
+    # Select and run the appropriate algorithm
+    if validator.method == 'bfs':
+        solution, depth = bfs(board_helper)
+    elif validator.method == 'dfs':
+        solution, depth = dfs(board_helper)
     else:
-        a_star_solution, a_star_depth = a_star(board_helper)
-        statistics = [a_star_solution, a_star_depth]
+        solution, depth = a_star(board_helper)
 
     initialization_time = time_ns()
     elapsed_time = time_ns() - initialization_time
-    statistics = [statistics[0]] + [board_helper.visited_states_len, board_helper.processed_states_len] + [statistics[1]]
-    result_files(statistics, val.solution_file, val.stat_file, elapsed_time)
+    statistics = [solution, board_helper.visited_states_len, board_helper.processed_states_len, depth]
+    write_result_files(statistics, validator.solution_file, validator.stat_file, elapsed_time)
 
 
-def result_files(statistics, solution_file, statistic_file, elapsed_time):
+def write_result_files(statistics: List[Union[List[str], int]], solution_file: str, statistic_file: str, elapsed_time: int) -> None:
+    """
+    Write the results to the solution and statistic files.
 
-    path, *additional_statistics = statistics
+    Args:
+        statistics (List[Union[List[str], int]]): The statistics to write.
+        solution_file (str): The path to the solution file.
+        statistic_file (str): The path to the statistic file.
+        elapsed_time (int): The elapsed time in nanoseconds.
+    """
+    path, visited_states_len, processed_states_len, solution_length = statistics
     solution_length = len(path) if path != -1 else -1
 
-    file = open(solution_file, 'w')
+    with open(solution_file, 'w') as sol_file:
+        sol_file.write(f"{solution_length}\n")
+        if path != -1:
+            sol_file.write(' '.join(path) + '\n')
 
-    file.write(str(solution_length))
-    if path != -1:
-        file.write('\n')
-        file.write(''.join(path))
-    file.close()
-
-    file = open(statistic_file, 'w')
-    file.write(str(solution_length))
-
-    additional_statistics += [round(elapsed_time * 0.000001, 3)]  # NANO_TO_MILI
-
-    for sts in additional_statistics:
-        file.write('\n')
-        file.write(str(sts))
-    file.close()
+    with open(statistic_file, 'w') as stat_file:
+        stat_file.write(f"{solution_length}\n")
+        stat_file.write(f"{visited_states_len}\n")
+        stat_file.write(f"{processed_states_len}\n")
+        stat_file.write(f"{elapsed_time}\n")
 
 
 if __name__ == "__main__":
