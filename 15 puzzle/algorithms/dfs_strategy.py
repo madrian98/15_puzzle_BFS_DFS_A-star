@@ -1,11 +1,22 @@
 from node import Node
 from helpers.board_helper import BoardHelper
 from helpers.data_structures import Stack
+from typing import Tuple, List, Union
 
-"""DFS algorithm"""
+"""
+Depth-First Search (DFS) algorithm for solving the 15-puzzle problem.
+"""
 
+def dfs(target: BoardHelper) -> Union[Tuple[List[str], int], Tuple[int, int]]:
+    """
+    Perform a Depth-First Search to solve the 15-puzzle problem.
 
-def dfs(target: BoardHelper):
+    Args:
+        target (BoardHelper): The board helper object containing the puzzle configuration.
+
+    Returns:
+        Union[Tuple[List[str], int], Tuple[int, int]]: A tuple containing the solution path and the maximum depth reached, or -1 and the maximum depth if no solution is found.
+    """
     maximum_depth = 0
     stack = Stack()
     processed_state = set()
@@ -15,10 +26,12 @@ def dfs(target: BoardHelper):
 
     while len(stack) > 0:
         selected_node = stack.pop()
-        if selected_node in processed_state and len(selected_node.way) >= current_depth[hash(selected_node)]:
+        node_hash = hash(selected_node)
+
+        if selected_node in processed_state and len(selected_node.way) >= current_depth[node_hash]:
             continue
 
-        current_depth[hash(selected_node)] = len(selected_node.way)
+        current_depth[node_hash] = len(selected_node.way)
         if len(selected_node.way) > maximum_depth:
             maximum_depth = len(selected_node.way)
 
@@ -37,10 +50,14 @@ def dfs(target: BoardHelper):
 
             if not target.is_solved(new_node.board):
                 continue
+
             target.processed_states_len = len(processed_state)
             visited_nodes = processed_state.union(unprocessed).union(stack)
             target.visited_states_len = len(visited_nodes)
+
             if len(new_node.way) > maximum_depth:
                 maximum_depth = len(new_node.way)
+
             return new_node.way, maximum_depth
+
     return -1, maximum_depth

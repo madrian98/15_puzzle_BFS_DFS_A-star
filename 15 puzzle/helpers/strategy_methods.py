@@ -1,26 +1,31 @@
+"""
+Strategy methods for the 15-puzzle problem.
+"""
 
-"""Strategy checker"""
+# Possible methods for solving the 15-puzzle problem
+POSSIBLE_METHODS = ['bfs', 'dfs', 'astr']
 
-POSSIBLE_Methods = ['bfs', 'dfs', 'astr']
-
-METHOD_map = {
+# Mapping of methods to their respective strategy types
+METHOD_MAP = {
     'bfs': 0,
     'dfs': 0,
     'astr': 1
 }
 
-BFS_DFS_Methods = {
+# Strategies for BFS and DFS methods
+BFS_DFS_METHODS = {
     'data': ['L', 'R', 'U', 'D'],
-    'value': lambda x: set(x) == set(BFS_DFS_Methods['data'])
+    'value': lambda x: set(x) == set(BFS_DFS_METHODS['data'])
 }
 
-A_STAR_Methods = {
+# Strategies for A* methods
+A_STAR_METHODS = {
     'data': ['hamm', 'manh'],
-    'value': lambda x: x in A_STAR_Methods['data']
+    'value': lambda x: x in A_STAR_METHODS['data']
 }
 
-Strategy_Methods = {
-    0: BFS_DFS_Methods,
-    1: A_STAR_Methods
+# Combined strategy methods
+STRATEGY_METHODS = {
+    0: BFS_DFS_METHODS,
+    1: A_STAR_METHODS
 }
-
