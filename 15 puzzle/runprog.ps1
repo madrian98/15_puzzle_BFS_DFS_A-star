@@ -14,14 +14,11 @@
 #  -param PARAM
 #    use only the particular order specified as PARAM for blind strategies or
 #    the particular heuristic specified as PARAM for informed strategies.
-#
-# TODO: Change variable $Progcmd to match the command needed to invoke the
-# actual program, using the absolute (or relative) path, for example:
-#  $Progcmd = 'C:\Users\User\15puzzle\bin\solver.exe' (native code)
-#  $Progcmd = 'java -jar C:\Users\User\15puzzle\bin\solver.jar' (executable JAR file)
-#  $Progcmd = python C:\Users\User\15puzzle\bin\solver.py' (Python file)
 
-param([string]$strategy, [string]$param)
+param(
+    [string]$strategy, 
+    [string]$param
+)
 
 $Progcmd = 'python program.py'
 $Orders = @('RDUL', 'RDLU', 'DRUL', 'DRLU', 'LUDR',  'LURD', 'ULDR', 'ULRD')

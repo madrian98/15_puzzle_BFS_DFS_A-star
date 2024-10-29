@@ -4,7 +4,6 @@ from typing import List, Dict, Tuple
 Node class for the 15-puzzle problem.
 """
 
-# Movement map
 MOVEMENT_MAP = {
     'U': (-1, 0),
     'D': (1, 0),
@@ -12,7 +11,6 @@ MOVEMENT_MAP = {
     'R': (0, 1)
 }
 
-# Reverse movement map
 REVERSE_MOVEMENT_MAP = {
     'U': 'D',
     'D': 'U',
